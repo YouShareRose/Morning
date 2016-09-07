@@ -3,7 +3,7 @@ package com.beans;
 /**
  * Created by Administrator on 2016/9/6.
  */
-public class ContractRecord {
+public class ContractRecordBean {
     private int id = 0;
     private String Serial_Num = null;
     private String WorkName = null;

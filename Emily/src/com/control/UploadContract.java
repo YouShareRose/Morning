@@ -1,7 +1,9 @@
 package com.control;
 
+import com.beans.ContractRecordBean;
 import com.config.Serial_Num_Config;
 import com.connect.db.NewDBConn;
+import com.connect.db.PreConn;
 import com.connect.db.TableConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,39 +41,41 @@ public class UploadContract {
         return Serial_Num;
     }
 
+    public int Upload(ContractRecordBean CRBean){
+        int rsInt = 0;
+        String Serial_Num = CreateSerial_Num();
+        try {
+            String sql = "insert into " + TableConfig.copyright_contract_record +
+                    "(`Serial_Num`,`RegisterType`,`WorkName`,`WorkType`" +
+                    ", `Register_Num`, `CopyrightBen`, `RegisterWay`, `Erop_Name`, `Erop_Addr`, `Erop_Contact`, " +
+                    "`Erop_Tel`, `TransferorName`, `TransferorAddr`, `TransferorContact`, `TransferorTel`, " +
+                    "`ContractProperty`, `Ertu`, `RightStartTime`, `RightEndTime`, `ContractSignTime`, `RegionScope`) values" +
+                    "('"+Serial_Num+"','Z20','东方跆拳道教育馆--教育流程','文字'" +
+                    ", 'qq', 'qq', 'qq', 'qq', 'qq', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q')";
+            logger.debug(sql);
+            rsInt = NewDBConn.excuteupdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rsInt;
+    }
+
+    public int test(){
+        int rs = 0;
+        try {
+            String sql = "insert into test" +
+                    "(id,name) values( ?,?)";
+            logger.debug(sql);
+            rs = PreConn.update(sql,11,"abd");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rs;
+    }
     public static void main(String[] args) {
-        Calendar cal = Calendar.getInstance();//获取一个Claender实例
-        SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");//格式化日期的形式
-        cal.set(2016,05,13);//设置日期，此时的日期是2013年11月30号
-        String date = sf.format(cal.getTime());//此时的date值为20131130
-        cal.add(Calendar.DAY_OF_YEAR, 90);//减去一天
-        date = sf.format(cal.getTime());//此时date的日期为20131129
+        UploadContract u1 = new UploadContract();
 
+        logger.debug("just new a UploadContract="+u1.test());
 
-       // Date date = new Date();
-
-        System.out.println(date+",,,,");
-//        date = date.getTime() + 90;
-        SimpleDateFormat format1 = new SimpleDateFormat("yyyy-mm-dd");
-//        String year1 = format1.format(date.getTime()+ 90 * 24 * 60 * 60 * 1000);
-//        System.out.println(year1);
-
-
-//        UploadContract u1 = new UploadContract();
-//        logger.debug("just new a UploadContract");
-//        logger.info(u1.CreateSerial_Num());
-//        try {
-//            String sql = "insert into " + TableConfig.copyright_contract_record +
-//                    "(`Serial_Num`,`RegisterType`,`WorkName`,`WorkType`" +
-//                    ", `Register_Num`, `CopyrightBen`, `RegisterWay`, `Erop_Name`, `Erop_Addr`, `Erop_Contact`, " +
-//                    "`Erop_Tel`, `TransferorName`, `TransferorAddr`, `TransferorContact`, `TransferorTel`, " +
-//                    "`ContractProperty`, `Ertu`, `RightStartTime`, `RightEndTime`, `ContractSignTime`, `RegionScope`) values" +
-//                    "('"+u1.CreateSerial_Num()+"','Z20','东方跆拳道教育馆--教育流程','文字'" +
-//                    ", 'qq', 'qq', 'qq', 'qq', 'qq', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q', 'q')";
-//            logger.debug(sql);
-//            NewDBConn.excuteupdate(sql);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
     }
 }
