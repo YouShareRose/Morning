@@ -24,6 +24,7 @@ public class MyApp {
         Bar bar = new Bar();
         if (!bar.doIt()) {
             logger.error("Didn't do it.");
+            System.out.println("nengbunebfsghy");
         }
         logger.trace("Exiting application.");
     }
